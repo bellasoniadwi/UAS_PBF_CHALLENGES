@@ -47,21 +47,22 @@ export default function MemberForm() {
           "success",
           `Member with id ${docRef.id} is succesfully updated in Firebase`
         )
-      ).then(() => {
+      )
+      // .then(() => {
         
-        axios
-          .put(`http://localhost:8000/api/members/${name}`, {
-            ...member
+      //   axios
+      //     .put(`http://localhost:8000/api/members/${name}`, {
+      //       ...member
 
-          })
-          .then((response) => {
-            showAlert("success", `Member is succesfully updated in MySQL`);
-          })
-          .catch((err) => {
-            console.error(err);
-            showAlert("error", `Member can't be updated in MySQL`);
-          });
-      })
+      //     })
+      //     .then((response) => {
+      //       showAlert("success", `Member is succesfully updated in MySQL`);
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //       showAlert("error", `Member can't be updated in MySQL`);
+      //     });
+      // })
       .catch((err) => {
         console.error(err);
         showAlert("error", `Member can't be updated in Firebase`);
@@ -75,19 +76,20 @@ export default function MemberForm() {
         },
         setMember({ name: "", alamat: "", usia: "", telepon: "" }),
         showAlert("success", `Member is succesfully added to Firebase`)
-      ).then(() => {
-        axios
-          .post("http://localhost:8000/api/members", {
-            ...member,
-          })
-          .then((response) => {
-            showAlert("success", `Member is succesfully added to MySQL`);
-          })
-          .catch((err) => {
-            console.error(err);
-            showAlert("error", `Member can't be added to MySQL`);
-          });
-      })
+      )
+      // .then(() => {
+      //   axios
+      //     .post("http://localhost:8000/api/members", {
+      //       ...member,
+      //     })
+      //     .then((response) => {
+      //       showAlert("success", `Member is succesfully added to MySQL`);
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //       showAlert("error", `Member can't be added to MySQL`);
+      //     });
+      // })
       .catch((err) => {
         console.error(err);
         showAlert("error", `Member can't be added to Firebase`);

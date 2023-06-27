@@ -47,21 +47,22 @@ export default function EmployeeForm() {
           "success",
           `Employee with id ${docRef.id} is succesfully updated in Firebase`
         )
-      ).then(() => {
+      )
+      // .then(() => {
         
-        axios
-          .put(`http://localhost:8000/api/employees/${name}`, {
-            ...employee
+      //   axios
+      //     .put(`http://localhost:8000/api/employees/${name}`, {
+      //       ...employee
             
-          })
-          .then((response) => {
-            showAlert("success", `Employee is succesfully updated in MySQL`);
-          })
-          .catch((err) => {
-            console.error(err);
-            showAlert("error", `Employee can't be updated in MySQL`);
-          });
-      })
+      //     })
+      //     .then((response) => {
+      //       showAlert("success", `Employee is succesfully updated in MySQL`);
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //       showAlert("error", `Employee can't be updated in MySQL`);
+      //     });
+      // })
       .catch((err) => {
         console.error(err);
         showAlert("error", `Employee can't be updated in Firebase`);
@@ -75,19 +76,20 @@ export default function EmployeeForm() {
         },
         setEmployee({ name: "", email: "", jabatan: "", telepon: "" }),
         showAlert("success", `Employee is succesfully added to Firebase`)
-      ).then(() => {
-        axios
-          .post("http://localhost:8000/api/employees", {
-            ...employee,
-          })
-          .then((response) => {
-            showAlert("success", `Employee is succesfully added to MySQL`);
-          })
-          .catch((err) => {
-            console.error(err);
-            showAlert("error", `Employee can't be added to MySQL`);
-          });
-      })
+      )
+      // .then(() => {
+      //   axios
+      //     .post("http://localhost:8000/api/employees", {
+      //       ...employee,
+      //     })
+      //     .then((response) => {
+      //       showAlert("success", `Employee is succesfully added to MySQL`);
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //       showAlert("error", `Employee can't be added to MySQL`);
+      //     });
+      // })
       .catch((err) => {
         console.error(err);
         showAlert("error", `Employee can't be added to Firebase`);

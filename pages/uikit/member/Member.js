@@ -20,20 +20,21 @@ const Member = ({ id, timestamp, name, alamat, telepon, usia }) => {
     deleteDoc(
       docRef, 
       showAlert("success", `Member with id ${id} is succesfully deleted from Firebase`))
-    .then(() => { 
-      // Hapus data dari API Laravel
-      axios
-        .delete(`http://localhost:8000/api/members/${name}`)
-        .then((response) => {
-          // Handling sukses
-          showAlert("success", `Member is successfully deleted from MySQL`);
-        })
-        .catch((error) => {
-          // Handling error
-          console.error(error);
-          showAlert("error", `Member can't be deleted from MySQL`);
-        });
-    }).catch((error) => {
+    // .then(() => { 
+    //   // Hapus data dari API Laravel
+    //   axios
+    //     .delete(`http://localhost:8000/api/members/${name}`)
+    //     .then((response) => {
+    //       // Handling sukses
+    //       showAlert("success", `Member is successfully deleted from MySQL`);
+    //     })
+    //     .catch((error) => {
+    //       // Handling error
+    //       console.error(error);
+    //       showAlert("error", `Member can't be deleted from MySQL`);
+    //     });
+    // })
+    .catch((error) => {
       // Handling error
       console.error(error);
       showAlert("error", `Member can't be deleted from Firebase`);

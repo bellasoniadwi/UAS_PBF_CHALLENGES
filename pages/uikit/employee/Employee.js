@@ -20,20 +20,21 @@ const Employee = ({ id, timestamp, name, email, telepon, jabatan }) => {
     deleteDoc(
       docRef, 
       showAlert("success", `Employee with id ${id} is succesfully deleted from Firebase`))
-    .then(() => {  
-      // Hapus data dari API Laravel
-      axios
-        .delete(`http://localhost:8000/api/employees/${name}`)
-        .then((response) => {
-          // Handling sukses
-          showAlert("success", `Employee is successfully deleted from MySQL`);
-        })
-        .catch((error) => {
-          // Handling error
-          console.error(error);
-          showAlert("error", `Employee can't be deleted from MySQL`);
-        });
-    }).catch((error) => {
+    // .then(() => {  
+    //   // Hapus data dari API Laravel
+    //   axios
+    //     .delete(`http://localhost:8000/api/employees/${name}`)
+    //     .then((response) => {
+    //       // Handling sukses
+    //       showAlert("success", `Employee is successfully deleted from MySQL`);
+    //     })
+    //     .catch((error) => {
+    //       // Handling error
+    //       console.error(error);
+    //       showAlert("error", `Employee can't be deleted from MySQL`);
+    //     });
+    // })
+    .catch((error) => {
       // Handling error
       console.error(error);
       showAlert("error", `Employee can't be deleted from Firebase`);
