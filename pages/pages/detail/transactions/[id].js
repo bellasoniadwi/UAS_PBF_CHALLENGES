@@ -1,12 +1,20 @@
 import {
   Button
 } from "@mui/material";
-import { collection, doc, getDocs, getDoc } from "firebase/firestore";
+// import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { Accordion, AccordionTab } from "primereact/accordion";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-const Detail = ({transactionProps}) => {
-  const transaction = JSON.parse(transactionProps)
+const Detail = ({transaction}) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  // const transaction = JSON.parse(transactionProps)
   return (
     <div className="col-12 md:col-12">
       <div className="card">
@@ -31,27 +39,55 @@ const Detail = ({transactionProps}) => {
 export default Detail;
 
 export const getStaticPaths = async () => {
-  const snapshot = await getDocs(collection(db, 'transactions'));
-  const paths = snapshot.docs.map(doc => {
-    return{
-      params: {id: doc.id.toString()}
-    }
-  })
+  // const snapshot = await getDocs(collection(db, 'transactions'));
+  // const paths = snapshot.docs.map(doc => {
+  //   return{
+  //     params: {id: doc.id.toString()}
+  //   }
+  // })
 
-  return{
+  // return{
+  //   paths,
+  //   fallback: false
+  // }
+  const response = await axios.get("http://localhost:8000/api/transactions");
+  const transactions = response.data.data;
+  const paths = transactions.map((transaction) => {
+    return {
+      params: { id: transaction.name },
+    };
+  });
+
+  return {
     paths,
-    fallback: false
-  }
+    fallback: true, // Set fallback to true to enable fallback behavior
+  };
 }
 
 export const getStaticProps = async(context) => {
+  // const id = context.params.id;
+
+  // const docRef = doc(db, "transactions", id );
+  // const docSnap = await getDoc(docRef);
+
+  // return {
+  //   props: {transactionProps: JSON.stringify(docSnap.data()) || null}
+  // }
   const id = context.params.id;
 
-  const docRef = doc(db, "transactions", id );
-  const docSnap = await getDoc(docRef);
+  try {
+    // Fetch the specific product from MySQL based on the ID
+    const response = await axios.get(`http://localhost:8000/api/transactions/${id}`);
+    const transaction = response.data;
 
-  return {
-    props: {transactionProps: JSON.stringify(docSnap.data()) || null}
+    return {
+      props: { transaction },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: { transaction: {} }, // Provide an empty object as fallback value
+    };
   }
 }
  

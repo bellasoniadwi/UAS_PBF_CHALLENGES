@@ -33,23 +33,23 @@ export default function TransactionForm() {
     event.preventDefault();
 
     if (transaction?.hasOwnProperty("timestamp")) {
-      const docRef = doc(db, "transactions", transaction.id);
-      const transactionUpdated = {
-        ...transaction,
-        timestamp: serverTimestamp(),
-      };
+      // const docRef = doc(db, "transactions", transaction.id);
+      // const transactionUpdated = {
+      //   ...transaction,
+      //   timestamp: serverTimestamp(),
+      // };
 
       getID(transaction.id, transaction.name, transaction.product, transaction.total);
       
-      updateDoc(
-        docRef,
-        transactionUpdated,
-        setTransaction({ name: "", product: "", total: "" }),
-        showAlert(
-          "success",
-          `Transaction with id ${docRef.id} is succesfully updated in Firebase`
-        )
-      ).then(() => {
+      // updateDoc(
+      //   docRef,
+      //   transactionUpdated,
+      //   setTransaction({ name: "", product: "", total: "" }),
+      //   showAlert(
+      //     "success",
+      //     `Transaction with id ${docRef.id} is succesfully updated in Firebase`
+      //   )
+      // ).then(() => {
         
         axios
           .put(`http://localhost:8000/api/transactions/${name}`, {
@@ -63,21 +63,21 @@ export default function TransactionForm() {
             console.error(err);
             showAlert("error", `Transaction can't be updated in MySQL`);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-        showAlert("error", `Transaction can't be updated in Firebase`);
-      });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      //   showAlert("error", `Transaction can't be updated in Firebase`);
+      // });
     } else {
-      addDoc(
-        collectionRef,
-        {
-          ...transaction,
-          timestamp: serverTimestamp(),
-        },
-        setTransaction({ name: "", product: "", total: "" }),
-        showAlert("success", `Transaction is succesfully added to Firebase`)
-      ).then(() => {
+      // addDoc(
+      //   collectionRef,
+      //   {
+      //     ...transaction,
+      //     timestamp: serverTimestamp(),
+      //   },
+      //   setTransaction({ name: "", product: "", total: "" }),
+      //   showAlert("success", `Transaction is succesfully added to Firebase`)
+      // ).then(() => {
         axios
           .post("http://localhost:8000/api/transactions", {
             ...transaction,
@@ -89,11 +89,11 @@ export default function TransactionForm() {
             console.error(err);
             showAlert("error", `Transaction can't be added to MySQL`);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-        showAlert("error", `Transaction can't be added to Firebase`);
-      });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      //   showAlert("error", `Transaction can't be added to Firebase`);
+      // });
     }
   };
 

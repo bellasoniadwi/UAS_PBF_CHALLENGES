@@ -19,7 +19,7 @@ export default function ProductForm() {
   const [harga, setHarga] = useState("");
   const [kategori, setKategori] = useState("");
 
-  const collectionRef = collection(db, "products");
+  // const collectionRef = collection(db, "products");
 
   const getID = (id, name, harga, kategori) => {
     setID(id);
@@ -34,20 +34,20 @@ export default function ProductForm() {
     event.preventDefault();
 
     if (product?.hasOwnProperty("timestamp")) {
-      const docRef = doc(db, "products", product.id);
-      const productUpdated = { ...product, timestamp: serverTimestamp() };
+      // const docRef = doc(db, "products", product.id);
+      // const productUpdated = { ...product, timestamp: serverTimestamp() };
 
       getID(product.id, product.name, product.harga, product.kategori);
 
-      updateDoc(
-        docRef,
-        productUpdated,
-        setProduct({ name: "", harga: "", kategori: "" }),
-        showAlert(
-          "success",
-          `Product with id ${docRef.id} is succesfully updated in Firebase`
-        )
-      ).then(() => {
+      // updateDoc(
+      //   docRef,
+      //   productUpdated,
+      //   setProduct({ name: "", harga: "", kategori: "" }),
+      //   showAlert(
+      //     "success",
+      //     `Product with id ${docRef.id} is succesfully updated in Firebase`
+      //   )
+      // ).then(() => {
 
         axios
           .put(`http://localhost:8000/api/products/${name}`, {
@@ -56,42 +56,44 @@ export default function ProductForm() {
           })
           .then((response) => {
             showAlert("success", `Product is succesfully updated in MySQL`);
+            setProduct({ name: "", harga: "", kategori: "" });
           })
           .catch((err) => {
             console.error(err);
             showAlert("error", `Product can't be updated in MySQL`);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-        showAlert("error", `Product can't be updated in Firebase`);
-      });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      //   showAlert("error", `Product can't be updated in Firebase`);
+      // });
     } else {
-      addDoc(
-        collectionRef,
-        {
-          ...product,
-          timestamp: serverTimestamp(),
-        },
-        setProduct({ name: "", harga: "", kategori: "" }),
-        showAlert("success", `Product is succesfully added to Firebase`)
-      ).then(() => {
+      // addDoc(
+      //   collectionRef,
+      //   {
+      //     ...product,
+      //     timestamp: serverTimestamp(),
+      //   },
+      //   setProduct({ name: "", harga: "", kategori: "" }),
+      //   showAlert("success", `Product is succesfully added to Firebase`)
+      // ).then(() => {
         axios
           .post("http://localhost:8000/api/products", {
             ...product,
           })
           .then((response) => {
             showAlert("success", `Product is succesfully added to MySQL`);
+            setProduct({ name: "", harga: "", kategori: "" });
           })
           .catch((err) => {
             console.error(err);
             showAlert("error", `Product can't be added to MySQL`);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-        showAlert("error", `Product can't be added to Firebase`);
-      });
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      //   showAlert("error", `Product can't be added to Firebase`);
+      // });
     }
   };
 

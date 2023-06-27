@@ -22,11 +22,11 @@ const Transaction = ({ id, timestamp, name, total, product }) => {
   // fungsi delete
   const deleteTransaction = async (id, e) => {
     e.stopPropagation();
-    const docRef = doc(db, "transactions", id);
-    deleteDoc(docRef,
-      showAlert("success", `Transaction with id ${id} is succesfully deleted from Firebase`))
-      .then(() => {
-      // Hapus data dari API Laravel
+    // const docRef = doc(db, "transactions", id);
+    // deleteDoc(docRef,
+    //   showAlert("success", `Transaction with id ${id} is succesfully deleted from Firebase`))
+    //   .then(() => {
+    //   // Hapus data dari API Laravel
       axios
         .delete(`http://localhost:8000/api/transactions/${name}`)
         .then((response) => {
@@ -38,11 +38,11 @@ const Transaction = ({ id, timestamp, name, total, product }) => {
           console.error(error);
           showAlert("error", `Transaction can't be deleted from MySQL`);
         });
-      }).catch((error) => {
-        // Handling error
-        console.error(error);
-        showAlert("error", `Transaction can't be deleted from Firebase`);
-    });
+    //   }).catch((error) => {
+    //     // Handling error
+    //     console.error(error);
+    //     showAlert("error", `Transaction can't be deleted from Firebase`);
+    // });
   };
 
   return (
